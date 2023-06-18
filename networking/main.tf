@@ -1,3 +1,8 @@
+variable "repo_version"{
+  default = "v0.0.0.1"
+}
+
+
 terraform {
   required_providers {
     aws = {
