@@ -35,6 +35,8 @@ resource "aws_ecr_repository" "aws_sandbox_ecr" {
 
 
 # ========== COMPUTE - INSTANCES
+# ===== DATA SOURCE NETWORKING
+
 # ===== EC2 - APP Server
 resource "aws_instance" "aws_sandbox_webserver" {
   count         = 1 
