@@ -1,0 +1,69 @@
+name: GitHub Action + Terraform Networking
+
+on:
+  push:
+    branches:
+      - test
+    paths:
+      - networking/**
+
+
+
+jobs:
+
+
+  networking:
+    name: Terraform Validation and Build
+    runs-on: ubuntu-latest
+
+    steps:    
+    
+    
+    - name: Checkout tf code in runner environment
+      uses: actions/checkout@v3.5.2
+      
+      
+    - name: Configure AWS Credentials Action For GitHub Actions
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
+
+    - name: Setup Terraform CLI
+      uses: hashicorp/setup-terraform@v2.0.2
+
+
+    - name: Terraform init
+      run: |
+        echo `pwd`
+        echo "** Running Terraform Init**"
+        terraform init
+      working-directory: 'networking'
+      
+      
+    - name: Terraform validate
+      run: |
+        echo `pwd`
+        echo "** Running Terraform Validate**"
+        terraform validate
+      working-directory: 'networking'
+      
+      
+    - name: Terraform plan
+      run: |
+        echo `pwd`
+        echo "tfpath ${{ github.event.inputs.tfpath }}"        
+        echo "** Running Terraform Plan**"
+        terraform plan
+      working-directory: 'networking'
+      
+     
+    - name: Terraform apply
+      run: |
+        echo `pwd`
+        echo "tfpath ${{ github.event.inputs.tfpath }}"        
+        echo "** Running Terraform Apply**"
+        terraform apply -auto-approve
+      working-directory: 'networking'
