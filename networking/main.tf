@@ -73,7 +73,7 @@ resource "aws_subnet" "aws_sandbox_public_subnet" {
 resource "aws_subnet" "aws_sandbox_private_subnet" {
   vpc_id                  = aws_vpc.aws_sandbox_vpc.id
   count                   = 1
-  cidr_block              = "10.0.0.0/24"
+  cidr_block              = "10.0.1.0/24"
   availability_zone       = "eu-central-1a"
   map_public_ip_on_launch = false
   tags = {
