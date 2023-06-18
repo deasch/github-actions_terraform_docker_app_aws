@@ -71,7 +71,7 @@ resource "aws_instance" "aws_sandbox_webserver" {
   instance_type = "t2.micro"
   
   key_name      = "devops_sandbox_aws"
-  subnet_id     = data.aws_subnet.aws_sandbox_public_subnet[0].id
+  subnet_id     = data.aws_subnet.aws_sandbox_public_subnet.id
   vpc_security_group_ids = [data.aws_security_group.aws_sandbox_default_sg.id]
 
   tags = {
