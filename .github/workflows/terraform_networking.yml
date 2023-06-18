@@ -3,7 +3,7 @@ name: GitHub Action + Terraform Networking
 on:
   push:
     branches:
-      - test
+      - main
     paths:
       - networking/**
 
