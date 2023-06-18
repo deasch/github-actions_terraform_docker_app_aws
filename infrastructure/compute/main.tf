@@ -35,6 +35,12 @@ resource "aws_ecr_repository" "aws_sandbox_ecr" {
 
 
 # ===== DATA SOURCE NETWORKING
+data "aws_security_group" "aws_sandbox_default_sg" {
+  filter {
+    name   = "tag:Name"
+    values = ["aws_sandbox_default_sg"]
+  }
+}
 data "aws_vpc" "aws_sandbox_vpc" {
   filter {
     name   = "tag:Name"
@@ -65,8 +71,8 @@ resource "aws_instance" "aws_sandbox_webserver" {
   instance_type = "t2.micro"
   
   key_name      = "devops_sandbox_aws"
-  subnet_id     = aws_subnet.aws_sandbox_public_subnet[0].id
-  vpc_security_group_ids = [aws_security_group.aws_sandbox_default_sg.id]
+  subnet_id     = data.aws_subnet.aws_sandbox_public_subnet[0].id
+  vpc_security_group_ids = [data.aws_security_group.aws_sandbox_default_sg.id]
 
   tags = {
     Project     = "aws_sandbox"
