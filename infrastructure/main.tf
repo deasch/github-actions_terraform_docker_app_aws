@@ -55,6 +55,25 @@ resource "aws_subnet" "aws_sandbox_private_subnet" {
 }
 
 
+# ========== NETWORKING - ROUTING TABLES
+# ===== PUBLIC ROUTE TABLE
+resource "aws_route_table" "aws_sandbox_public_routetable" {
+  vpc_id = aws_vpc.aws_sandbox_vpc.id
+  tags = {
+    Name        = "aws_sandbox-public-route-table"
+    Environment = "aws_sandbox"
+  }
+}
+# ===== PRIVATE ROUTE TABLE
+resource "aws_route_table" "aws_sandbox_private_routetable" {
+  vpc_id = aws_vpc.aws_sandbox_vpc.id
+  tags = {
+    Name        = "aws_sandbox-private-route-table"
+    Environment = "aws_sandbox"
+  }
+}
+
+
 
 
 
