@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+
+    web:
+        command: >
+          bash -c "python3 db_table_creation.py && python3 manage.py"
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code2
+        links:
+          - postgres
+
+
+    postgres:
+        image: onjin/alpine-postgres:9.5
+        restart: unless-stopped
+        ports:
+            - "5480:5480"
+        environment:
+            LC_ALL: C.UTF-8
+            POSTGRES_USER: hellofresh
+            POSTGRES_PASSWORD: hellofresh
+            POSTGRES_DB: hellofresh
