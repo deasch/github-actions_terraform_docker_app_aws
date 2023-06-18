@@ -36,7 +36,7 @@ resource "aws_ecr_repository" "aws_sandbox_ecr" {
 
 # ========== COMPUTE - INSTANCES
 # ===== EC2 - APP Server
-resource "aws_instance" "web" {
+resource "aws_instance" "aws_sandbox_webserver" {
   count         = 1 
   ami           = "ami-0b2ac948e23c57071"
   instance_type = "t2.micro"
@@ -47,7 +47,7 @@ resource "aws_instance" "web" {
 
   tags = {
     Project     = "aws_sandbox"
-    Name        = "aws_sandbox_ecr"
+    Name        = "aws_sandbox_webserver"
     Environment = "aws_sandbox"
   }
 }
