@@ -25,6 +25,7 @@ provider "aws" {
 resource "aws_ecr_repository" "aws_sandbox_ecr" {
   name                 = "aws_sandbox_ecr"
   image_tag_mutability = "MUTABLE"
+  force_delete         = true
 
   tags = {
     Project     = "aws_sandbox"
