@@ -21,3 +21,11 @@ provider "aws" {
 
 
 # ========== MODULES
+# === NETWORKING
+module "networking" {
+  source = "./modules/networking"
+}
+# === COMPUTE
+module "compute" {
+  source = "./modules/compute"
+}
