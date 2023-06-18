@@ -18,3 +18,17 @@ terraform {
 provider "aws" {
   region = "eu-central-1"
 }
+
+
+# ========== REPOSITORY
+# ===== ECR
+resource "aws_ecr_repository" "aws_sandbox_ecr" {
+  name                 = "aws_sandbox_ecr"
+  image_tag_mutability = "MUTABLE"
+
+  tags = {
+    Project     = "aws_sandbox"
+    Name        = "aws_sandbox_ecr"
+    Environment = "aws_sandbox"
+  }
+}
