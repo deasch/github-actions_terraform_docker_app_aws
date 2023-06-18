@@ -74,6 +74,8 @@ resource "aws_instance" "aws_sandbox_webserver" {
   subnet_id     = data.aws_subnet.aws_sandbox_public_subnet.id
   vpc_security_group_ids = [data.aws_security_group.aws_sandbox_default_sg.id]
 
+  user_data = "${file("${path.module}/userdata_webserver.sh")}"
+
   tags = {
     Project     = "aws_sandbox"
     Name        = "aws_sandbox_webserver"
