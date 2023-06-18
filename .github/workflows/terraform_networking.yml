@@ -12,8 +12,8 @@ on:
 jobs:
 
 
-  networking:
-    name: Terraform Validation and Build
+  infrastructure:
+    name: Terraform - Init + Validate + Plan + Apply
     runs-on: ubuntu-latest
 
     steps:    
@@ -40,7 +40,7 @@ jobs:
         echo `pwd`
         echo "** Running Terraform Init**"
         terraform init
-      working-directory: 'networking'
+      working-directory: 'infrastructure'
       
       
     - name: Terraform validate
@@ -48,7 +48,7 @@ jobs:
         echo `pwd`
         echo "** Running Terraform Validate**"
         terraform validate
-      working-directory: 'networking'
+      working-directory: 'infrastructure'
       
       
     - name: Terraform plan
@@ -57,7 +57,7 @@ jobs:
         echo "tfpath ${{ github.event.inputs.tfpath }}"        
         echo "** Running Terraform Plan**"
         terraform plan
-      working-directory: 'networking'
+      working-directory: 'infrastructure'
       
      
     - name: Terraform apply
@@ -66,4 +66,4 @@ jobs:
         echo "tfpath ${{ github.event.inputs.tfpath }}"        
         echo "** Running Terraform Apply**"
         terraform apply -auto-approve
-      working-directory: 'networking'
+      working-directory: 'infrastructure'
