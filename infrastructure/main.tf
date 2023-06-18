@@ -98,7 +98,18 @@ resource "aws_route_table" "aws_sandbox_private_routetable" {
     Environment = "aws_sandbox"
   }
 }
-
+# ===== ROUTING - PUBLIC INTERNET GATEWAY
+resource "aws_route" "aws_sandbox_public_internet_gateway" {
+  route_table_id         = aws_route_table.aws_sandbox_public_routetable.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.aws_sandbox_igw.id
+}
+# ===== ROUTING - PRIVATE INTERNET GATEWAY
+resource "aws_route" "aws_sandbox_private_nat_gateway" {
+  route_table_id         = aws_route_table.aws_sandbox_private_routetable.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.aws_sandbox_nat.id
+}
 
 
 
