@@ -110,7 +110,18 @@ resource "aws_route" "aws_sandbox_private_nat_gateway" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.aws_sandbox_nat.id
 }
-
+# ===== PUBLIC ROUTE TABLE ASSOCIATION
+resource "aws_route_table_association" "public" {
+  count          = "${length(var.public_subnets_cidr)}"
+  subnet_id      = aws_subnet.aws_sandbox_public_subnet.id
+  route_table_id = aws_route_table.aws_sandbox_public_routetable.id
+}
+# ===== PRIVATE ROUTE TABLE ASSOCIATION
+resource "aws_route_table_association" "private" {
+  count          = "${length(var.private_subnets_cidr)}"
+  subnet_id      = aws_subnet.aws_sandbox_private_subnet.id
+  route_table_id = aws_route_table.aws_sandbox_private_routetable.id
+}
 
 
 
