@@ -34,9 +34,27 @@ resource "aws_ecr_repository" "aws_sandbox_ecr" {
 }
 
 
-# ========== COMPUTE - INSTANCES
 # ===== DATA SOURCE NETWORKING
+data "aws_vpc" "aws_sandbox_vpc" {
+   filter {
+     name = "aws_sandbox_vpc"
+   }
+}
+data "aws_subnet" "aws_sandbox_public_subnet" {
+  vpc_id = data.aws_vpc.aws_sandbox_vpc.id
+  filter {
+     name = "aws_sandbox_eu-central-1a_public_subnet"
+   }
+}
+data "aws_subnet" "aws_sandbox_private_subnet" {
+  vpc_id = data.aws_vpc.aws_sandbox_vpc.id
+  filter {
+     name = "aws_sandbox_eu-central-1a_private_subnet"
+   }
+}
 
+
+# ========== COMPUTE - INSTANCES
 # ===== EC2 - APP Server
 resource "aws_instance" "aws_sandbox_webserver" {
   count         = 1 
