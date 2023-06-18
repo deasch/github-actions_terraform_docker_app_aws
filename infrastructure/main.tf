@@ -7,12 +7,16 @@ terraform {
   }
 }
 
-# Configure the AWS Provider
+
+# ========== PROVIDER
+# ===== AWS
 provider "aws" {
   region = "eu-central-1"
 }
 
-# Create a VPC
+
+# ========== NETWORKING - VPC
+# ===== VPC
 resource "aws_vpc" "aws_sandbox_vpc" {
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
