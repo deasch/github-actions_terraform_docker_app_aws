@@ -56,7 +56,7 @@ resource "aws_security_group" "aws_sandbox_default_sg" {
 resource "aws_subnet" "aws_sandbox_public_subnet" {
   vpc_id                  = aws_vpc.aws_sandbox_vpc.id
   count                   = "${length(var.public_subnets_cidr)}"
-  cidr_block              = "${element(var.public_subnets_cidr,   count.index)}"
+  cidr_block              = "10.0.0.0/24"
   availability_zone       = "${element(var.availability_zones,   count.index)}"
   map_public_ip_on_launch = true
   tags = {
@@ -68,7 +68,7 @@ resource "aws_subnet" "aws_sandbox_public_subnet" {
 resource "aws_subnet" "aws_sandbox_private_subnet" {
   vpc_id                  = aws_vpc.aws_sandbox_vpc.id
   count                   = "${length(var.private_subnets_cidr)}"
-  cidr_block              = "${element(var.private_subnets_cidr, count.index)}"
+  cidr_block              = "10.0.0.0/24"
   availability_zone       = "${element(var.availability_zones,   count.index)}"
   map_public_ip_on_launch = false
   tags = {
