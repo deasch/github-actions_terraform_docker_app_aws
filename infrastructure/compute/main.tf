@@ -36,21 +36,24 @@ resource "aws_ecr_repository" "aws_sandbox_ecr" {
 
 # ===== DATA SOURCE NETWORKING
 data "aws_vpc" "aws_sandbox_vpc" {
-   filter {
-     name = "aws_sandbox_vpc"
-   }
+  filter {
+    name   = "tag:Name"
+    values = ["aws_sandbox_vpc"]
+  }
 }
 data "aws_subnet" "aws_sandbox_public_subnet" {
   vpc_id = data.aws_vpc.aws_sandbox_vpc.id
   filter {
-     name = "aws_sandbox_eu-central-1a_public_subnet"
-   }
+    name   = "tag:Name"
+    values = ["aws_sandbox_eu-central-1a_public_subnet"]
+  }
 }
-data "aws_subnet" "aws_sandbox_private_subnet" {
+data "aws_subnet" "aws_sandbox_public_subnet" {
   vpc_id = data.aws_vpc.aws_sandbox_vpc.id
   filter {
-     name = "aws_sandbox_eu-central-1a_private_subnet"
-   }
+    name   = "tag:Name"
+    values = ["aws_sandbox_eu-central-1a_private_subnet"]
+  }
 }
 
 
