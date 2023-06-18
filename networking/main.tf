@@ -100,7 +100,7 @@ resource "aws_eip" "aws_sandbox_nat_eip" {
 # ===== NAT GATEWAY
 resource "aws_nat_gateway" "aws_sandbox_nat" {
   allocation_id = aws_eip.aws_sandbox_nat_eip.id
-  subnet_id     = aws_subnet.aws_sandbox_public_subnet.id
+  subnet_id     = aws_subnet.aws_sandbox_public_subnet[1].id
   depends_on    = [aws_internet_gateway.aws_sandbox_igw]
   tags = {
     Name        = "aws_sandbox_nat"
@@ -141,13 +141,13 @@ resource "aws_route" "aws_sandbox_private_nat_gateway" {
 # ===== PUBLIC ROUTE TABLE ASSOCIATION
 resource "aws_route_table_association" "public" {
   count          = 1
-  subnet_id      = aws_subnet.aws_sandbox_public_subnet.id
+  subnet_id      = aws_subnet.aws_sandbox_public_subnet[1].id
   route_table_id = aws_route_table.aws_sandbox_public_routetable.id
 }
 # ===== PRIVATE ROUTE TABLE ASSOCIATION
 resource "aws_route_table_association" "private" {
   count          = 1
-  subnet_id      = aws_subnet.aws_sandbox_private_subnet.id
+  subnet_id      = aws_subnet.aws_sandbox_private_subnet[1].id
   route_table_id = aws_route_table.aws_sandbox_private_routetable.id
 }
 
