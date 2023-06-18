@@ -48,7 +48,7 @@ data "aws_subnet" "aws_sandbox_public_subnet" {
     values = ["aws_sandbox_eu-central-1a_public_subnet"]
   }
 }
-data "aws_subnet" "aws_sandbox_public_subnet" {
+data "aws_subnet" "aws_sandbox_private_subnet" {
   vpc_id = data.aws_vpc.aws_sandbox_vpc.id
   filter {
     name   = "tag:Name"
