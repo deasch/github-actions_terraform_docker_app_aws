@@ -51,6 +51,7 @@ resource "aws_security_group" "aws_sandbox_default_sg" {
     self      = "true"
   }
   tags = {
+    Name        = "aws_sandbox_default_sg"
     Environment = "aws_sandbox"
   }
 }
