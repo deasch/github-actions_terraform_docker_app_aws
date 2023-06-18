@@ -55,6 +55,32 @@ resource "aws_subnet" "aws_sandbox_private_subnet" {
 }
 
 
+# ========== NETWORKING - GATEWAYS
+# ===== INTERNET GATEWAY
+resource "aws_internet_gateway" "aws_sandbox_igw" {
+  vpc_id = aws_vpc.aws_sandbox_vpc.id
+  tags = {
+    Name        = "aws_sandbox_igw"
+    Environment = "aws_sandbox"
+  }
+}
+# ===== ElASTIC IP FOR NAT GATEWAY
+resource "aws_eip" "aws_sandbox_nat_eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.aws_sandbox_igw]
+}
+# ===== NAT GATEWAY
+resource "aws_nat_gateway" "aws_sandbox_nat" {
+  allocation_id = aws_eip.aws_sandbox_nat_eip.id
+  subnet_id     = aws_subnet.aws_sandbox_public_subnet.id
+  depends_on    = [aws_internet_gateway.aws_sandbox_igw]
+  tags = {
+    Name        = "aws_sandbox_nat"
+    Environment = "aws_sandbox"
+  }
+}
+
+
 # ========== NETWORKING - ROUTING TABLES
 # ===== PUBLIC ROUTE TABLE
 resource "aws_route_table" "aws_sandbox_public_routetable" {
@@ -72,6 +98,9 @@ resource "aws_route_table" "aws_sandbox_private_routetable" {
     Environment = "aws_sandbox"
   }
 }
+
+
+
 
 
 
