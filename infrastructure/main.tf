@@ -26,6 +26,29 @@ resource "aws_vpc" "aws_sandbox_vpc" {
     Environment = "aws_sandbox"
   }
 }
+# ===== DEFAULT SECURITY GROUP
+resource "aws_security_group" "aws_sandbox_default_sg" {
+  name        = "aws_sandbox_default_sg"
+  description = "Default security group to allow inbound/outbound from the VPC"
+  vpc_id      = aws_vpc.aws_sandbox_vpc.id
+  depends_on  = [aws_vpc.aws_sandbox_vpc]
+  ingress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = true
+  }
+  
+  egress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = "true"
+  }
+  tags = {
+    Environment = "aws_sandbox"
+  }
+}
 
 
 # ========== NETWORKING - SUBNETS
